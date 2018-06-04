@@ -32,7 +32,7 @@ import java.util.List;
 
 public class FirstActivity extends AppCompatActivity {
 
-    private Button MenuButton,buttonScan,buttonFind;
+    private Button MenuButton,buttonScan,buttonFind, shoppingButton;
     private TextView textViewCode, textViewName;
     private ImageView mainImage;
     private IntentIntegrator qrScan;
@@ -54,6 +54,7 @@ public class FirstActivity extends AppCompatActivity {
         qrScan = new IntentIntegrator(this);
         buttonScan = (Button) findViewById(R.id.qr_button);
         buttonFind = (Button)findViewById(R.id.buttonFind);
+        shoppingButton = (Button)findViewById(R.id.shopping_button);
         textViewCode = (TextView)findViewById(R.id.textViewCode);
         textViewName = (TextView)findViewById(R.id.textViewName);
         mainImage = (ImageView)findViewById(R.id.mainImage);
@@ -104,6 +105,17 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FirstActivity.this, MenuActivity.class);
+                intent.putExtra("code", textViewCode.getText().toString());
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+        });
+
+        //장바구니 버튼
+        shoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FirstActivity.this, ShoppingActivity.class);
                 intent.putExtra("code", textViewCode.getText().toString());
                 intent.putExtra("id",id);
                 startActivity(intent);

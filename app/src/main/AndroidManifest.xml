@@ -33,6 +33,9 @@
         <activity
             android:name=".MenuProperties"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ShoppingActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

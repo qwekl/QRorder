@@ -167,7 +167,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="장바구니"/>
+            android:text="장바구니"
+            android:id="@+id/shopping_button"/>
 
 
     </LinearLayout>
