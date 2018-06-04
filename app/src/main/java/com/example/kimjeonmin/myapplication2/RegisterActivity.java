@@ -18,7 +18,7 @@ import java.net.URL;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static String TAG = "phptest_RegisterActivity";
+    //private static String TAG = "phptest_RegisterActivity";
 
     private EditText IdText;
     private EditText PasswordText;
@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
             RegisterButton.setText(result);
-            Log.d(TAG, "POST response  - " + result);
+           // Log.d(TAG, "POST response  - " + result);
         }
 
 
@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
+               // Log.d(TAG, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if(responseStatusCode == HttpURLConnection.HTTP_OK) {
@@ -147,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             } catch (Exception e) {
 
-                Log.d(TAG, "InsertData: Error ", e);
+                //Log.d(TAG, "InsertData: Error ", e);
 
                 return new String("Error: " + e.getMessage());
             }
