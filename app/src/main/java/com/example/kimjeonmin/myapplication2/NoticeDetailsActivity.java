@@ -1,14 +1,25 @@
 package com.example.kimjeonmin.myapplication2;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class NoticeDetailsActivity extends AppCompatActivity{
 
     private TextView noticeTitle, noticeName, noticeDateCreated,noticeDetails;
-    String title,name,datecreated;
+    String noticeid,code;
+    private NoticeDetailList list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -20,16 +31,78 @@ public class NoticeDetailsActivity extends AppCompatActivity{
         noticeDateCreated = (TextView)findViewById(R.id.noticedatecreated);
         noticeDetails = (TextView)findViewById(R.id.noticedetails);
 
-        title = getIntent().getStringExtra("title");
-        name = getIntent().getStringExtra("name");
-        datecreated = getIntent().getStringExtra("datecreated");
+        noticeTitle.setText(getIntent().getStringExtra("title"));
+        noticeName.setText(getIntent().getStringExtra("name"));
+        noticeDateCreated.setText(getIntent().getStringExtra("datecreated"));
 
-        System.out.println(title+name+datecreated);
+        noticeid = getIntent().getStringExtra("noticeid");
 
-        noticeTitle.setText(title);
-        //noticeName.setText(getIntent().getStringExtra("name"));
-        //noticeTitle.setText(getIntent().getStringExtra("datecreated"));
+        //공지사항 설명 클래스 호출
+        new BackgroundTask().execute();
+
+    }
 
 
+
+    //DB에서 해당 공지사항 설명 불러오기
+    class BackgroundTask extends AsyncTask<Void, Void, String> {
+
+        String target;
+
+        @Override
+        protected void onPreExecute(){
+            noticeid = getIntent().getStringExtra("noticeid");
+            code = getIntent().getStringExtra("code");
+            System.out.println(code);
+
+            target = "http://sola0722.cafe24.com/NoticeDetail.php?noticeid=";
+        }
+        @Override
+        protected String doInBackground(Void... voids) {
+            try{
+                URL url = new URL(target+noticeid+"&code="+code);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null){
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        @Override
+        public void onProgressUpdate(Void...values){
+            super.onProgressUpdate();
+        }
+        @Override
+        public void onPostExecute(String result){
+
+            try{
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+                int count = 0;
+                String detail;
+                while (count < jsonArray.length()){
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    detail = object.getString("detail");
+                    list = new NoticeDetailList(detail);
+                    list.setDetail(detail);
+                    count++;
+                }
+                noticeDetails.setText(list.getDetail());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }

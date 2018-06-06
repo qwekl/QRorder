@@ -38,7 +38,7 @@ public class MenuProperties extends AppCompatActivity {
     private String menuname, code, userid;
     private int menuprice;
     private int menucount = 1;
-    MenuDescriptionList list;
+    private MenuDescriptionList list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class MenuProperties extends AppCompatActivity {
         //메뉴 가격
         menupriceText.setText(getIntent().getStringExtra("price")+"원");
 
-        //메뉴 설명
+        //메뉴 설명클래스 호출
         new BackgroundTask().execute();
 
         //개수에 따른 메뉴 총 가격

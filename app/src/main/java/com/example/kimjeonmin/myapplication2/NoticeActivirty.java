@@ -2,21 +2,31 @@ package com.example.kimjeonmin.myapplication2;
 
 public class NoticeActivirty {
 
+    String noticeid;
     String title;
     String name;
     String datecreated;
 
-    public NoticeActivirty(String title, String name, String datecreated) {
+    public NoticeActivirty(String noticeid ,String title, String name, String datecreated) {
+        this.noticeid = noticeid;
         this.title = title;
         this.name = name;
         this.datecreated = datecreated;
+    }
+
+    public String getNoticeid() {
+        return noticeid;
+    }
+
+    public void setNoticeid(String noticeid) {
+        this.noticeid = noticeid;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String Title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 

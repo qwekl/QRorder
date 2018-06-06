@@ -88,19 +88,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        noticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, NoticeDetailsActivity.class);
-                intent.putExtra("title", noticeActivirtyList.get(position).getTitle());
-                intent.putExtra("name", noticeActivirtyList.get(position).getName());
-                intent.putExtra("datecreated", noticeActivirtyList.get(position).getDatecreated());
-                startActivity(intent);
-            }
-        });
-
-
-
 
         // 공지사항 상세 보기 클릭버튼
         noticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, NoticeDetailsActivity.class);
                 intent.putExtra("title", noticeActivirtyList.get(i).getTitle());
+                intent.putExtra("name", noticeActivirtyList.get(i).getName());
+                intent.putExtra("datecreated", noticeActivirtyList.get(i).getDatecreated());
+                intent.putExtra("noticeid", noticeActivirtyList.get(i).getNoticeid());
+                intent.putExtra("code", textViewCode.getText().toString());
                 startActivity(intent);
             }
         });
@@ -217,13 +208,14 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
                 int count = 0;
-                String title, name, datecreated;
+                String noticeid, title, name, datecreated;
                 while (count < jsonArray.length()){
                     JSONObject object = jsonArray.getJSONObject(count);
+                    noticeid = object.getString("id");
                     title = object.getString("title");
                     name = object.getString("name");
                     datecreated = object.getString("datecreated");
-                    NoticeActivirty notice = new NoticeActivirty(title, name,datecreated);
+                    NoticeActivirty notice = new NoticeActivirty(noticeid,title, name,datecreated);
                     noticeActivirtyList.add(notice);
                     adapter.notifyDataSetChanged();
                     count++;
