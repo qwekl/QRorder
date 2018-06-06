@@ -36,6 +36,9 @@
         <activity
             android:name=".ShoppingActivity"
             android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".PopUpActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>

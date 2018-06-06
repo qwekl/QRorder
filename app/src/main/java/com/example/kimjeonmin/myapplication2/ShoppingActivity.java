@@ -1,11 +1,14 @@
 package com.example.kimjeonmin.myapplication2;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,6 +42,7 @@ public class ShoppingActivity extends AppCompatActivity{
         shopping_listview.setAdapter(adapter);
         orderButton = (Button)findViewById(R.id.orderButton);
 
+        final String code = getIntent().getStringExtra("code");
 
 
         //결제 버튼
@@ -47,6 +51,7 @@ public class ShoppingActivity extends AppCompatActivity{
             public void onClick(View v) {
                 new Order().execute();
                 new ShoppingDelete().execute();
+                Toast.makeText(getApplicationContext(),"결제가 완료되었습니다.",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -55,6 +60,17 @@ public class ShoppingActivity extends AppCompatActivity{
 
         //메뉴 클레스 접근
         new BackgroundTask().execute();
+
+
+        shopping_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                Intent intent = new Intent(ShoppingActivity.this, PopUpActivity.class);
+                intent.putExtra("menuname", shoppingList.get(i).getMenuname());
+                intent.putExtra("code",code);
+                startActivityForResult(intent,1);
+            }
+        });
     }
 
 
@@ -128,9 +144,10 @@ public class ShoppingActivity extends AppCompatActivity{
         String target;
         String code = getIntent().getStringExtra("code");
 
+
         @Override
         protected void onPreExecute(){
-            target = "http://sola0722.cafe24.com/ShoppingDelete.php?code="+code;
+            target = "http://sola0722.cafe24.com/Order.php?code="+code;
         }
 
         @Override
@@ -166,6 +183,7 @@ public class ShoppingActivity extends AppCompatActivity{
         }
     }
 
+    //결제완료목록 지우기
     class ShoppingDelete extends AsyncTask<Void, Void, String> {
 
         String target;
@@ -173,7 +191,7 @@ public class ShoppingActivity extends AppCompatActivity{
 
         @Override
         protected void onPreExecute(){
-            target = "http://sola0722.cafe24.com/Order.php?code="+code;
+            target = "http://sola0722.cafe24.com/ShoppingDelete.php?code="+code;
         }
 
         @Override
@@ -196,6 +214,7 @@ public class ShoppingActivity extends AppCompatActivity{
             }catch (Exception e){
                 e.printStackTrace();
             }
+
 
             return null;
         }
