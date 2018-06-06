@@ -3,6 +3,8 @@ package com.example.kimjeonmin.myapplication2;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -14,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShoppingActivity extends AppCompatActivity{
@@ -21,6 +24,7 @@ public class ShoppingActivity extends AppCompatActivity{
     private ListView shopping_listview;
     private ShoppingListAdapter adapter;
     private List<ShoppingList> shoppingList;
+    private Button orderButton;
 
 
     @Override
@@ -33,12 +37,26 @@ public class ShoppingActivity extends AppCompatActivity{
         shoppingList = new ArrayList<ShoppingList>();
         adapter = new ShoppingListAdapter(getApplicationContext(),shoppingList);
         shopping_listview.setAdapter(adapter);
+        orderButton = (Button)findViewById(R.id.orderButton);
+
+
+
+        //결제 버튼
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Order().execute();
+                new ShoppingDelete().execute();
+
+            }
+        });
 
 
 
         //메뉴 클레스 접근
         new BackgroundTask().execute();
     }
+
 
     //서버에서 메뉴 불러오기
     class BackgroundTask extends AsyncTask<Void, Void, String> {
@@ -100,6 +118,94 @@ public class ShoppingActivity extends AppCompatActivity{
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    //결제 클레스
+    class Order extends AsyncTask<Void, Void, String> {
+
+        String target;
+        String code = getIntent().getStringExtra("code");
+
+        @Override
+        protected void onPreExecute(){
+            target = "http://sola0722.cafe24.com/ShoppingDelete.php?code="+code;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try{
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null){
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void...values){
+            super.onProgressUpdate();
+        }
+        @Override
+        public void onPostExecute(String result){
+        }
+    }
+
+    class ShoppingDelete extends AsyncTask<Void, Void, String> {
+
+        String target;
+        String code = getIntent().getStringExtra("code");
+
+        @Override
+        protected void onPreExecute(){
+            target = "http://sola0722.cafe24.com/Order.php?code="+code;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try{
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null){
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void...values){
+            super.onProgressUpdate();
+        }
+        @Override
+        public void onPostExecute(String result){
         }
     }
 }

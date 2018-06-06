@@ -37,15 +37,15 @@ public class NoticeListAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.activity_notice, null);
-        TextView noticeText = (TextView)v.findViewById(R.id.noticeText);
+        TextView titleText = (TextView)v.findViewById(R.id.titleText);
         TextView nameText = (TextView)v.findViewById(R.id.nameText);
         TextView dateText = (TextView)v.findViewById(R.id.dateText);
 
-        noticeText.setText(noticeList.get(i).getNotice());
+        titleText.setText(noticeList.get(i).getTitle());
         nameText.setText(noticeList.get(i).getName());
-        dateText.setText(noticeList.get(i).getDate());
+        dateText.setText(noticeList.get(i).getDatecreated());
 
-        v.setTag(noticeList.get(i).getNotice());
+        v.setTag(noticeList.get(i).getTitle());
         return v;
     }
 }

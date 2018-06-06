@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resiter);
+        setContentView(R.layout.activity_register);
 
         IdText = (EditText)findViewById(R.id.idText);
         PasswordText = (EditText)findViewById(R.id.passwordText);

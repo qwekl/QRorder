@@ -2,22 +2,22 @@ package com.example.kimjeonmin.myapplication2;
 
 public class NoticeActivirty {
 
-    String notice;
+    String title;
     String name;
-    String date;
+    String datecreated;
 
-    public NoticeActivirty(String notice, String name, String date) {
-        this.notice = notice;
+    public NoticeActivirty(String title, String name, String datecreated) {
+        this.title = title;
         this.name = name;
-        this.date = date;
+        this.datecreated = datecreated;
     }
 
-    public String getNotice() {
-        return notice;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNotice(String notice) {
-        this.notice = notice;
+    public void setTitle(String Title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -28,11 +28,11 @@ public class NoticeActivirty {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
+    public String getDatecreated() {
+        return datecreated;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDatecreated(String datecreated) {
+        this.datecreated = datecreated;
     }
 }

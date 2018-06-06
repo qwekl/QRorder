@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:background="@drawable/border">
 
             <TextView
                 android:layout_width="0dp"
@@ -46,7 +46,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/border">
 
             <TextView
                 android:layout_width="0dp"
@@ -69,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:background="@drawable/border">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -87,6 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="17dp"
                     android:text="1"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -111,6 +113,7 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:layout_gravity="center"
+                    android:textSize="17dp"
                     android:text="총 가격"/>
 
                 <TextView
@@ -119,6 +122,7 @@
                     android:layout_weight="7"
                     android:gravity="center"
                     android:id="@+id/price"
+                    android:textSize="17dp"
                     android:text=""/>
 
 
@@ -130,9 +134,10 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border">
 
             <TextView
                 android:layout_width="match_parent"
@@ -141,6 +146,7 @@
                 android:text="상세 설명"
                 android:textSize="20dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/border"
                 />
             <ScrollView
                 android:layout_width="match_parent"

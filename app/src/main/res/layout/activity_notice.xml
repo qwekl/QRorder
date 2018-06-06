@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:textColor="#ffffff"
-        android:id="@+id/noticeText"
+        android:id="@+id/titleText"
         android:drawableStart="@drawable/ic_textsms_black_24dp"
         android:drawableLeft="@drawable/ic_textsms_black_24dp"
         android:background="@color/colorPrimary"
@@ -23,11 +23,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@color/colorPrimaryDark">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="7"
             android:text="김정민"
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"
@@ -37,8 +39,9 @@
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="3"
             android:text="2017-01-01"
             android:layout_gravity="center"
             android:padding="3dp"

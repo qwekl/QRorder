@@ -63,8 +63,6 @@ public class MenuActivity extends AppCompatActivity {
                 intent.putExtra("menuid", menuList.get(position).getMenuid());
                 intent.putExtra("code", code);
                 intent.putExtra("userid",userid);
-
-                //intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
