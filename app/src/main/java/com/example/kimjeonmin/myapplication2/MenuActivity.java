@@ -2,25 +2,17 @@ package com.example.kimjeonmin.myapplication2;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -36,11 +28,14 @@ public class MenuActivity extends AppCompatActivity {
     private String userid;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+
 
         menuListView = (ListView)findViewById(R.id.listView);
         menuList = new ArrayList<MenuList>();
@@ -57,10 +52,11 @@ public class MenuActivity extends AppCompatActivity {
         menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MenuActivity.this, MenuProperties.class);
+                Intent intent = new Intent(MenuActivity.this, MenuPropertiesActivity.class);
                 intent.putExtra("menuname", menuList.get(position).getMenuname());
                 intent.putExtra("price", menuList.get(position).getPrice());
                 intent.putExtra("menuid", menuList.get(position).getMenuid());
+                intent.putExtra("filename", menuList.get(position).getFilename());
                 intent.putExtra("code", code);
                 intent.putExtra("userid",userid);
                 startActivity(intent);
@@ -68,6 +64,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
     }
+
 
     //서버에서 메뉴 불러오기
     class BackgroundTask extends AsyncTask<Void, Void, String> {
@@ -114,13 +111,14 @@ public class MenuActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
                 int count = 0;
-                String menuname, price, menuid;
+                String menuname, price, menuid,filename;
                 while (count < jsonArray.length()){
                     JSONObject object = jsonArray.getJSONObject(count);
                     menuname = object.getString("menuname");
                     price = object.getString("price");
                     menuid = object.getString("menuid");
-                    MenuList menu = new MenuList(menuname,price,menuid);
+                    filename = object.getString("filename");
+                    MenuList menu = new MenuList(menuname,price,menuid,filename);
                     menuList.add(menu);
                     adapter.notifyDataSetChanged();
                     count++;

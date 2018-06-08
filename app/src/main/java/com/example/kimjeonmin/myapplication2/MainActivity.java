@@ -32,17 +32,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button MenuButton,buttonScan,buttonFind, shoppingButton;
+    private ImageView MenuButton,buttonScan, shoppingButton, NoticeButton;
     private TextView textViewCode, textViewName;
     private ImageView mainImage;
     private IntentIntegrator qrScan;
-    private ListView noticeListView;
-    private NoticeListAdapter adapter;
-    private List<NoticeActivirty> noticeActivirtyList;
-    private ImageBack task = new ImageBack();
+    private ImageBack task;
     private Bitmap bmp;
     private String logoimageUrl = "http://sola0722.cafe24.com/logoimage/";
     private  String code,id;
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,58 +48,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MenuButton = (Button)findViewById(R.id.menu_button);
-        qrScan = new IntentIntegrator(this);
-        buttonScan = (Button) findViewById(R.id.qr_button);
-        buttonFind = (Button)findViewById(R.id.buttonFind);
-        shoppingButton = (Button)findViewById(R.id.shopping_button);
+        backPressCloseHandler = new BackPressCloseHandler(this);
+
+        MenuButton = (ImageView) findViewById(R.id.menu_button);
+        buttonScan = (ImageView) findViewById(R.id.qr_button);
+        shoppingButton = (ImageView) findViewById(R.id.shopping_button);
+        NoticeButton = (ImageView)findViewById(R.id.notice_button);
         textViewCode = (TextView)findViewById(R.id.textViewCode);
         textViewName = (TextView)findViewById(R.id.textViewName);
         mainImage = (ImageView)findViewById(R.id.mainImage);
+        qrScan = new IntentIntegrator(this);
+
 
 
         //사용자 id 가져오기
         id = getIntent().getStringExtra("id");
 
 
-        noticeListView = (ListView) findViewById(R.id.listView);
-        noticeActivirtyList = new ArrayList<NoticeActivirty>();
-        adapter = new NoticeListAdapter(getApplicationContext(), noticeActivirtyList);
-        noticeListView.setAdapter(adapter);
-
-
-
-        //매장 이미지 찾기 버튼
-        buttonFind.setOnClickListener(new View.OnClickListener() {
+        //공지사항 버튼
+        NoticeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                code = textViewCode.getText().toString();
-                task = new ImageBack();
-                try {
-                    bmp = task.execute(logoimageUrl+code+".jpg").get();
-                    mainImage.setImageBitmap(bmp);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-                //공지사항 클레스 접근
-                new BackgroundTask().execute();
-            }
-        });
-
-
-        // 공지사항 상세 보기 클릭버튼
-        noticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, NoticeDetailsActivity.class);
-                intent.putExtra("title", noticeActivirtyList.get(i).getTitle());
-                intent.putExtra("name", noticeActivirtyList.get(i).getName());
-                intent.putExtra("datecreated", noticeActivirtyList.get(i).getDatecreated());
-                intent.putExtra("noticeid", noticeActivirtyList.get(i).getNoticeid());
+                Intent intent = new Intent(MainActivity.this, NoticeActivity.class);
                 intent.putExtra("code", textViewCode.getText().toString());
                 startActivity(intent);
             }
         });
+
 
         //메뉴 버튼
         MenuButton.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        backPressCloseHandler.onBackPressed();
+    }
     //스캔 결과 얻어오기
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -154,7 +131,17 @@ public class MainActivity extends AppCompatActivity {
                     textViewCode.setText(obj.getString("code"));
                 } catch (JSONException e) {
                     e.printStackTrace();
+                };
+
+                task = new ImageBack();
+                code = textViewCode.getText().toString();
+                try {
+                    bmp = task.execute(logoimageUrl+code+".jpg").get();
+                    mainImage.setImageBitmap(bmp);
+                } catch(Exception e) {
+                    e.printStackTrace();
                 }
+//                new BackgroundTask().execute();
             }
 
         } else {
@@ -162,69 +149,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    //서버에서 공지사항 불러오기
-    class BackgroundTask extends AsyncTask<Void, Void, String>{
-
-        String target;
-        String code = textViewCode.getText().toString();
-
-        @Override
-        protected void onPreExecute(){
-            target = "http://sola0722.cafe24.com/Notice.php?companyid=";
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            try{
-                URL url = new URL(target+code);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String temp;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((temp = bufferedReader.readLine()) != null){
-                    stringBuilder.append(temp + "\n");
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return stringBuilder.toString().trim();
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        public void onProgressUpdate(Void...values){
-            super.onProgressUpdate();
-        }
-        @Override
-        public void onPostExecute(String result){
-            try{
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray jsonArray = jsonObject.getJSONArray("response");
-                int count = 0;
-                String noticeid, title, name, datecreated;
-                while (count < jsonArray.length()){
-                    JSONObject object = jsonArray.getJSONObject(count);
-                    noticeid = object.getString("id");
-                    title = object.getString("title");
-                    name = object.getString("name");
-                    datecreated = object.getString("datecreated");
-                    NoticeActivirty notice = new NoticeActivirty(noticeid,title, name,datecreated);
-                    noticeActivirtyList.add(notice);
-                    adapter.notifyDataSetChanged();
-                    count++;
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
     //이미지 불러오기
     private class ImageBack extends AsyncTask<String, Integer, Bitmap> {

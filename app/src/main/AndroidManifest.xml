@@ -11,12 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name=".LoginActivity">
+
         </activity>
         <activity
             android:name=".RegisterActivity"
@@ -31,11 +39,17 @@
             android:name=".NoticeDetailsActivity"
             android:parentActivityName=".LoginActivity" />
         <activity
-            android:name=".MenuProperties"
+            android:name=".NoticeActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".MenuPropertiesActivity"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".ShoppingActivity"
             android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".PopUpActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
     </application>
 
 </manifest>

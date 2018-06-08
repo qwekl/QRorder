@@ -11,10 +11,10 @@ import java.util.List;
 public class NoticeListAdapter extends BaseAdapter{
 
     private Context context;
-    private List<NoticeActivirty> noticeList;
+    private List<NoticeListActivirty> noticeList;
 
     // 생성자
-    public NoticeListAdapter(Context context, List<NoticeActivirty> noticeList) {
+    public NoticeListAdapter(Context context, List<NoticeListActivirty> noticeList) {
         this.context = context;
         this.noticeList = noticeList;
     }
@@ -36,7 +36,7 @@ public class NoticeListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.activity_notice, null);
+        View v = View.inflate(context, R.layout.activity_noticelist, null);
         TextView titleText = (TextView)v.findViewById(R.id.titleText);
         TextView nameText = (TextView)v.findViewById(R.id.nameText);
         TextView dateText = (TextView)v.findViewById(R.id.dateText);

@@ -5,11 +5,13 @@ public class MenuList {
     String menuname;
     String price;
     String menuid;
+    String filename;
 
-    public MenuList(String menuname, String price, String menuid) {
+    public MenuList(String menuname, String price, String menuid, String filename) {
         this.menuname = menuname;
         this.price = price;
         this.menuid = menuid;
+        this.filename = filename;
     }
 
     public String getMenuname() {
@@ -34,5 +36,13 @@ public class MenuList {
 
     public void setMenuid(String menuid) {
         this.menuid = menuid;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }
