@@ -42,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
         adapter = new MenuListAdapter(getApplicationContext(),menuList);
         menuListView.setAdapter(adapter);
         final String code = getIntent().getStringExtra("code");
+        final String phonenumber = getIntent().getStringExtra("phonenumber");
         userid = getIntent().getStringExtra("id");
 
 
@@ -58,6 +59,7 @@ public class MenuActivity extends AppCompatActivity {
                 intent.putExtra("menuid", menuList.get(position).getMenuid());
                 intent.putExtra("filename", menuList.get(position).getFilename());
                 intent.putExtra("code", code);
+                intent.putExtra("phonenumber", phonenumber);
                 intent.putExtra("userid",userid);
                 startActivity(intent);
             }
