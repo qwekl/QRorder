@@ -46,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
         userid = getIntent().getStringExtra("id");
 
 
-        //메뉴 클레스 접근
+        //メニューのクラスアクセス
         new BackgroundTask().execute();
 
 
@@ -68,7 +68,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    //서버에서 메뉴 불러오기
+    //データベースからメニューテーブルを得る
     class BackgroundTask extends AsyncTask<Void, Void, String> {
 
         String target;
