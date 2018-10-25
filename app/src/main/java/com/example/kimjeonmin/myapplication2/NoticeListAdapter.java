@@ -13,7 +13,7 @@ public class NoticeListAdapter extends BaseAdapter{
     private Context context;
     private List<NoticeListActivirty> noticeList;
 
-    // 생성자
+    // constructor
     public NoticeListAdapter(Context context, List<NoticeListActivirty> noticeList) {
         this.context = context;
         this.noticeList = noticeList;
