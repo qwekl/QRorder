@@ -37,14 +37,14 @@ public class NoticeDetailsActivity extends AppCompatActivity{
 
         noticeid = getIntent().getStringExtra("noticeid");
 
-        //공지사항 설명 클래스 호출
+        //お知らせの説明クラス呼び出し
         new BackgroundTask().execute();
 
     }
 
 
 
-    //DB에서 해당 공지사항 설명 불러오기
+    //DBからコードに合うお知らせ説明呼んでくる
     class BackgroundTask extends AsyncTask<Void, Void, String> {
 
         String target;
