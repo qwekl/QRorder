@@ -62,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //사용자 id 가져오기
+        //ユーザーのidを持ってくる
         id = getIntent().getStringExtra("id");
 
         new UserPhoneNumber().execute();
 
 
-        //공지사항 버튼
+        //お知らせボタン
         NoticeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //메뉴 버튼
+        //メニューボタン
         MenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //장바구니 버튼
+        //買い物かごボタン
         shoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 스캐너 버튼
+        // スキャナーボタン
         buttonScan.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //scan option
@@ -117,19 +117,19 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         backPressCloseHandler.onBackPressed();
     }
-    //스캔 결과 얻어오기
+    //スキャン結果を得る
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
-            //qrcode 가 없으면
+            //qrcodeがない
             if (result.getContents() == null) {
                 Toast.makeText(MainActivity.this, "취소!", Toast.LENGTH_SHORT).show();
             } else {
-                //qrcode 결과가 있으면
+                //qrcodeがある
                 Toast.makeText(MainActivity.this, "스캔완료!", Toast.LENGTH_SHORT).show();
                 try {
-                    //data를 json으로 변환
+                    //データをjsonに変換
                     JSONObject obj = new JSONObject(result.getContents());
                     textViewName.setText(obj.getString("name"));
                     textViewCode.setText(obj.getString("code"));
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //이미지 불러오기
+    //ウェブサーバーからイメージを得る
     private class ImageBack extends AsyncTask<String, Integer, Bitmap> {
         private Bitmap bmImg;
 
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //서버에서 공지사항 불러오기
+    //データベースからお知らせのテーブルを得る
     class UserPhoneNumber extends AsyncTask<Void, Void, String> {
 
         String target;
