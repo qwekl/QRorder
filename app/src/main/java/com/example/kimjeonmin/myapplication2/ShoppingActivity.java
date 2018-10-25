@@ -45,20 +45,20 @@ public class ShoppingActivity extends AppCompatActivity{
         final String code = getIntent().getStringExtra("code");
 
 
-        //결제 버튼
+        //決済ボタン
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Order().execute();
                 new ShoppingDelete().execute();
-                Toast.makeText(getApplicationContext(),"결제가 완료되었습니다.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"決済が完了しました。",Toast.LENGTH_LONG).show();
 
             }
         });
 
 
 
-        //메뉴 클레스 접근
+        //メニューのクラスアクセス
         new BackgroundTask().execute();
 
 
@@ -74,7 +74,7 @@ public class ShoppingActivity extends AppCompatActivity{
     }
 
 
-    //서버에서 메뉴 불러오기
+    //サーバーからメニューテーブル呼んでくる
     class BackgroundTask extends AsyncTask<Void, Void, String> {
 
         String target;
@@ -138,7 +138,7 @@ public class ShoppingActivity extends AppCompatActivity{
     }
 
 
-    //결제 클레스
+    //注文クレス
     class Order extends AsyncTask<Void, Void, String> {
 
         String target;
@@ -183,7 +183,7 @@ public class ShoppingActivity extends AppCompatActivity{
         }
     }
 
-    //결제완료목록 지우기
+    //注文完了リスト消す
     class ShoppingDelete extends AsyncTask<Void, Void, String> {
 
         String target;
