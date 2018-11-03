@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    //상단
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -64,7 +64,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="안녕하세요!"
+            android:text="おはようございます!"
             android:gravity="center"
             android:layout_marginTop="70dp"
             android:textSize="20dp"
@@ -79,7 +79,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="주문다모아"
+                android:text="DAMOA"
                 android:gravity="right"
                 android:textColor="#DF01A5"
                 android:textSize="20dp"
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="에 오신것을 환영합니다."
+                android:text="にいらっしゃったことを歓迎します"
                 android:textSize="20dp"
                 />
             
@@ -98,7 +98,7 @@
     </LinearLayout>
 
 
-    //중단
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -116,7 +116,7 @@
     </LinearLayout>
 
 
-    //하단
+   
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -135,7 +135,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="공지사항"
+                android:text="お知らせ"
                 android:textSize="12dp"
                 android:gravity="center"
                 />
@@ -144,7 +144,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="메뉴"
+                android:text="メニュー"
                 android:textSize="12dp"
                 android:gravity="center"
                 />
@@ -153,7 +153,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="장바구니"
+                android:text="買い物かご"
                 android:textSize="12dp"
                 android:gravity="center"
                 />
@@ -162,7 +162,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="QR코드"
+                android:text="QRコード"
                 android:textSize="12dp"
                 android:gravity="center"
                 />
