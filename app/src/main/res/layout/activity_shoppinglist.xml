@@ -17,7 +17,7 @@
             android:layout_weight="6"
             android:layout_gravity="center"
             android:textSize="25dp"
-            android:text="메뉴 명"
+            android:text="メニューの名前"
             android:id="@+id/menunameText" />
 
         <LinearLayout
@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center"
-                        android:text="가격"/>
+                        android:text="値段"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="개수"
+                    android:text="数量"
                     />
 
                 <TextView
