@@ -6,7 +6,7 @@
     android:background="#eeeeee"
     android:orientation="vertical">
 
-    <!-- 타이틀바 -->
+    <!-- タイトル -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="53dp" />
     </LinearLayout>
-    <!-- //end 타이틀바 -->
+    <!-- //end タイトル -->
 
     <!-- Notice -->
     <LinearLayout
@@ -45,14 +45,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp" />
 
-    <!-- 닫기 버튼 -->
+
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:text="취소"
+            android:text="キャンセル"
             android:textSize="15sp"
             android:textColor="#000000"
             android:padding="16dp"
@@ -64,7 +64,7 @@
             android:onClick="mOnClose"
             android:id="@+id/cancelButton"/>
         <Button
-            android:text="확인"
+            android:text="確認"
             android:textSize="15sp"
             android:textColor="#000000"
             android:padding="16dp"
@@ -76,7 +76,6 @@
             android:onClick="mOnClose"
             android:id="@+id/deleteButton"/>
     </LinearLayout>
-    <!--// 닫기 버튼 -->
-
+  
 
 </LinearLayout>
